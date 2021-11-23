@@ -5,7 +5,6 @@ import (
 	"apollo-proxy/model"
 	"encoding/json"
 	"github.com/gin-gonic/gin"
-	"net/http"
 	"net/http/httputil"
 	"net/url"
 	"strings"
@@ -77,22 +76,7 @@ func ReverseProxy(host string, ctx *gin.Context) {
 
 	proxy.ServeHTTP(ctx.Writer, ctx.Request)
 }
-func ReverseProxyBack(host string, ctx *gin.Context) {
-	target, _ := url.Parse(host)
-	director := func(req *http.Request) {
-		req.Header = ctx.Request.Header
-		req.URL.Scheme = target.Scheme
-		pathArray := strings.Split(req.URL.Path, "/")
-		trimPath := ""
-		req.Header.Del("Authorization")
-		trimPath = strings.Join(pathArray[4:], "/")
-		req.URL.Path = singleJoiningSlash(target.Path, trimPath)
-		req.URL.Host = target.Host
-		req.Host = target.Host
-	}
-	proxy := &httputil.ReverseProxy{Director: director}
-	proxy.ServeHTTP(ctx.Writer, ctx.Request)
-}
+
 func singleJoiningSlash(a, b string) string {
 	aslash := strings.HasSuffix(a, "/")
 	bslash := strings.HasPrefix(b, "/")
