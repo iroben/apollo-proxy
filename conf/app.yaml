@@ -1,0 +1,31 @@
+app:
+  port: 9999
+  mode: debug
+  user: admin
+  passwd: 123456
+
+
+jenkins:
+  user: admin
+  token: jenkinstoken
+  domain: http://10.11.101.196:8888/
+  # 如果没有安装 Generic Webhook Trigger Plugin，请删除下面两行
+  trigger_key: TRIGGER
+  trigger_value: apollo-proxy
+
+gitlab:
+  token: gitlabtoken
+  domain: https://gitlab.example.com/api/v4
+  trigger_key: TRIGGER
+  trigger_value: apollo-proxy
+
+apollo:
+  dev: http://106.54.227.205:8080 #http://configserver.example.com/apollo-proxy/dev
+  fat: http://106.54.227.205:8080 #http://configserver.example.com/apollo-proxy/fat
+  prod: http://106.54.227.205:8080 #http://configserver.example.com/apollo-proxy/prod
+
+mysql:
+  user: root
+  passwd: root
+  host: localhost:3306
+  dbname: apollo-proxy
