@@ -65,9 +65,9 @@ func (j *Jenkins) BuildByTrigger(project *model.Project) (int64, error) {
 		return 0, err
 	}
 	if buildInfo, ok := trigger.Jobs[jobName]; ok {
-		return buildInfo.Id, errors.New("job not exists: " + jobName)
+		return buildInfo.Id, nil
 	}
-	return 0, nil
+	return 0, errors.New("job not exists: " + jobName)
 
 }
 func (j *Jenkins) BuildJob(project *model.Project) (int64, error) {

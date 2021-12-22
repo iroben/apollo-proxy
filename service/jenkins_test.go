@@ -10,10 +10,11 @@ import (
 
 func TestJenkins_Build(t *testing.T) {
 	jenkins := NewJenkins()
-	buildId, _ := jenkins.Build(&model.Project{
-		Project: "front-jenkins-example",
+	buildId, err := jenkins.Build(&model.Project{
+		Project: "multi-branch-project",
 		Branch:  "master",
 	})
+	assert.Nil(t, err)
 	t.Log("buildId: ", buildId)
 	for {
 		flag, err := jenkins.IsFinish(buildId)
